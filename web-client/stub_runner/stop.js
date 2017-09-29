@@ -1,5 +1,5 @@
-let fs = require('fs');
-let process = require('process');
+const fs = require('fs');
+const process = require('process');
 
 fs.readFile('.pid', 'utf8', function (err, data) {
     if(err) throw err;

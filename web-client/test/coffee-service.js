@@ -1,7 +1,7 @@
-var assert = require('assert');
+const assert = require('assert');
 const request = require('supertest');
 
-var deliveryCoffeService = 'http://localhost:8080'
+const deliveryCoffeService = 'http://localhost:8080'
 
 
 describe('File APIs', function() {

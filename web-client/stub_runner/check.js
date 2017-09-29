@@ -1,4 +1,4 @@
-let request = require('requestretry');
+const request = require('requestretry');
 
 const port = '8080';
 const title = 'coffee-delivery'
