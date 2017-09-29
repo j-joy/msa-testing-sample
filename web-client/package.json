@@ -1,15 +1,12 @@
 {
   "name": "web-client",
   "version": "0.0.1",
-  "description": "",
-  "main": "index.js",
   "scripts": {
-    "pretest": "node stub-runner-run.js",
-    "posttest": "node stub-runner-kill.js",
-    "test": "mocha"
+    "pretest": "node stub_runner/run.js & node stub_runner/check.js",
+    "posttest": "node stub_runner/stop.js",
+    "test": "mocha --recursive"
   },
   "author": "",
-  "license": "ISC",
   "devDependencies": {
     "mocha": "^3.5.3",
     "requestretry": "^1.12.2",
