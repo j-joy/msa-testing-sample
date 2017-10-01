@@ -7,6 +7,7 @@ buildscript {
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+		classpath "org.springframework.cloud:spring-cloud-contract-gradle-plugin:1.1.3.RELEASE"
 	}
 }
 
@@ -18,9 +19,25 @@ apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'org.unbroken-dome.test-sets'
+apply plugin: 'spring-cloud-contract'
+apply plugin: 'maven-publish'
+apply plugin: 'groovy'
+
+publishing {
+	repositories {
+		maven {
+			url "http://mynexus@@@:8081/repository/maven-snapshots/"
+			credentials{
+				username "xxx"
+				password "xxx"
+			}
+		}
+	}
+}
 
 testSets { // testset 추가
 	functionalTest
+	contractTest {extendsFrom functionalTest}
 }
 
 group = 'jjoy.msa-testing-sample'
@@ -37,7 +54,15 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-web')
 
 	testCompile('org.springframework.boot:spring-boot-starter-test')
+	testCompile("org.springframework.cloud:spring-cloud-starter-contract-verifier:1.1.3.RELEASE")
 
 	functionalTestCompile 'io.rest-assured:rest-assured:3.0.3'
 //	functionalTestCompile sourceSets.test.compileClasspath
+}
+
+contracts {
+	testMode = 'MockMvc' // generate되는 test형태에 대한 설정 mockMvc가 기본값
+	contractsDslDir = project.file("${project.rootDir}/src/contractTest/resources/contracts") //Contract 명세파일 디렉토리 위치 설정
+	basePackageForTests = 'jjoy.msatestingsample.bakeryservice.contract' //자동 생성되는 Test파일 디렉토리 위치 설정
+	baseClassForTests = 'jjoy.msatestingsample.bakeryservice.contract.ContractVerifierBase' //자동 생성되는 Test파일의 부모클래스 설정
 }

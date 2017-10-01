@@ -1,0 +1,7 @@
+server:
+  port: 8080
+msa:
+  gateway: http://localhost:9090
+stubrunner:
+ ids: 'jjoy.msa-testing-sample:bakery-service:+:stubs:9090'
+# repositoryRoot: 'http://mynux@#@#:8081/repository/maven-snapshots/'

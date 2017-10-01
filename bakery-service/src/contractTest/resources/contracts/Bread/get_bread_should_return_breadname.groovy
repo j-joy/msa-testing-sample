@@ -1,4 +1,4 @@
-package contracts.CoffeeDelivery
+package contracts.Bread
 
 import org.springframework.cloud.contract.spec.Contract
 
@@ -6,21 +6,19 @@ Contract.make {
     description('''
 given
 when
- /coffees가 호출되었을때
+ /bread/{breadName} was called
 then
- coffee 메뉴가 리턴된다
+ return bread object
 ''')
     request {
         method 'GET'
-        url '/coffees'
+        url '/bread/bagel'
     }
     response {
         status 200
         body(
                 [
-                        [name:'Americano'],
-                        [name:'Caffee Latte'],
-                        [name:'Esspresso']
+                    name:'bagel'
                 ]
         )
         headers {
